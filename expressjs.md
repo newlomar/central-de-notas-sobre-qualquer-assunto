@@ -68,3 +68,14 @@ app.listen(3000, () => {
   console.log("Acessar http://localhost:3000");
 });
 ```
+
+## Nodemon
+
+Utilizado para ficar verificando alterações no servidor em momento de desenvolvimento e não precisar ficar derrubando e subindo o servidor sempre que mudar algo no código (o Nodemon faz isso por você).
+
+Para instá-lo:
+
+````bash
+npm install nodemon --save-dev
+```
+````
