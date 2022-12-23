@@ -69,6 +69,8 @@ app.listen(3000, () => {
 });
 ```
 
+<br>
+
 ## Nodemon
 
 Utilizado para ficar verificando alterações no servidor em momento de desenvolvimento e não precisar ficar derrubando e subindo o servidor sempre que mudar algo no código (o Nodemon faz isso por você).
@@ -80,6 +82,8 @@ npm install nodemon --save-dev
 ```
 ````
 
+<br>
+
 ## req.params, req.query, req.body
 
 Query Params => seguem o modelo de "chave=valor", por exemplo: campanha=facebook
@@ -87,3 +91,108 @@ Query Params => seguem o modelo de "chave=valor", por exemplo: campanha=facebook
 Params => ficam no final da rota, por exemplo: /api/v1/users/123
 
 Body => corpo da requisição
+
+Consumindo req.params:
+
+```js
+app.get("/testes/:idUsuarios", (req, res) => {
+  console.log(req.params);
+  res.send("Oi");
+});
+```
+
+Para usar parâmetro opcionais, colocar interrogação no final do parâmetro, possibilitando, assim, usar a rota /testes também.
+
+```js
+app.get("/testes/:idUsuarios?", (req, res) => {
+  console.log(req.params);
+  if (req.params.idUsuarios) {
+    res.send(req.params.idUsuarios);
+  }
+  res.send("Sem parâmetros");
+});
+```
+
+Além disso, é possível seguir com parâmetros opcionais ou obrigatórios o quanto for necessário, porém a adição de paramêtros obrigatórios após opcionais gera comportamento estranhos (testar removendo a última interrogação do endpoint abaixo.):
+
+```js
+app.get("/testes/:idUsuarios?/:parametro?", (req, res) => {
+  console.log(req.params);
+  res.send(req.params);
+});
+```
+
+Trabalhando com query strings:
+
+- Exemplo de utilização: http://localhost.com:3000/??nome=Newton&sobrenome=Lomar
+
+```js
+app.get("/testes/:idUsuarios?/:parametro?", (req, res) => {
+  console.log(req.query);
+  res.send(req.query);
+});
+```
+
+Trabalhando com req.body:
+
+Em primeiro lugar, habilitar o middlewre urlencoded com extended=true:
+
+```js
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+```
+
+E a rota fica assim:
+
+```js
+app.post("/form", (req, res) => {
+  console.log(req.body);
+  res.send(req.body.nome);
+});
+```
+
+<br>
+
+## Routers and Controllers
+
+Consiste em um padrão de organização de código, onde as rotas e os controllers ficam em arquivos diferentes, respeitando o princípio da separação de responsabilidades.
+
+<br>
+
+# Views
+
+Usado para ter a parte visual da aplicação no modelo MVC full (todos arquivos dentro da mesma aplicação).
+
+Deve se usar um middleware apontando para o caminho da pasta cujo as views estão armazenadas. Opcionalmente, pode-se usar a biblioteca path para passar caminhos absolutos.
+
+Além disso, vamos usar uma "engine" para dar super poderes ao nosso HTML. O ejs, engine que vamos utilizar, permite que a gente utilize for loops e condicionais no HTML.
+
+É necessários instalar essa engine com:
+
+```bash
+npm i ejs
+```
+
+```js
+const path = require("path");
+
+app.set("views", path.resolve(__dirname, "src", "views"));
+app.set("view engine", "ejs");
+```
+
+Agora, nos nosso arquivos HTML dentro da pasta views, vamos utilizar a extensão ".ejs". Por exemplo: index.ejs
+
+<br>
+
+# Arquivos estáticos
+
+Utilizado para fornecimento de arquivos estáticos, como arquivos html, css e imagens.
+
+Pode ser possível pelo meio do middleware:
+
+```js
+app.use(express.static("./public"));
+```
