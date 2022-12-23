@@ -79,3 +79,11 @@ Para instá-lo:
 npm install nodemon --save-dev
 ```
 ````
+
+## req.params, req.query, req.body
+
+Query Params => seguem o modelo de "chave=valor", por exemplo: campanha=facebook
+
+Params => ficam no final da rota, por exemplo: /api/v1/users/123
+
+Body => corpo da requisição
