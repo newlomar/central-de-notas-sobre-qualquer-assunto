@@ -210,6 +210,7 @@ export default function App() {
       console.log("Successfully signed up");
     } else {
       console.log("Passwords do not match");
+      return;
     }
 
     if (joinNewsletter) {
