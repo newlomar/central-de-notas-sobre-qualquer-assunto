@@ -132,3 +132,33 @@ export default function Form() {
   );
 }
 ```
+
+A few questions and answers about Forms:
+
+1. In a vanilla JS app, at what point in the form submission
+   process do you gather all the data from the filled-out form?
+
+Right before the submission of the form.
+
+2. In a React app, when do you gather all the data from
+   the filled-out form?
+
+As the form is being filled out. The data is all held in local state.
+
+3. Which attribute in the form elements (value, name, onChange, etc.)
+   should match the property name being held in state for that input?
+
+name
+
+4. What's different about a saving the data from a checkbox element
+   vs. other form elements?
+
+A checkbox uses the `checked` property to determine what should
+be saved in state. Other form elements use the `value` property instead.
+
+5. How do you watch for a form submit? How can you trigger
+   a form submit?
+
+You can listen to the "submit" event or using the "onSubmit" handler.
+
+You can trigger by clicking a button inside a form. A button inside a form is automatically a submit button
